@@ -1,30 +1,46 @@
 from tkinter import Frame, Label, Entry, Button
+import customtkinter
+from PIL import Image
+import os
+
+customtkinter.set_appearance_mode("dark")
 
 
 class SignInView(Frame):
+    width = 900
+    height = 600
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
 
-        self.header = Label(self, text="Sign In with existing account")
-        self.header.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+        # load and create background image
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "../../test_images/bg_gradient.jpg"),
+                                               size=(self.width, self.height))
+        self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
+        self.bg_image_label.grid(row=0, column=0)
 
-        self.username_label = Label(self, text="Username")
-        self.username_input = Entry(self)
-        self.username_label.grid(row=1, column=0, padx=10, sticky="w")
-        self.username_input.grid(row=1, column=1, padx=(0, 20), sticky="ew")
+        # create login frame
+        self.login_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        self.login_frame.grid(row=0, column=0, sticky="ns")
+        self.login_label = customtkinter.CTkLabel(self.login_frame, text="Sign In with existing account",
+                                                  font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.login_label.grid(row=0, column=0, padx=30, pady=(150, 15))
 
-        self.password_label = Label(self, text="Password")
-        self.password_input = Entry(self, show="*")
-        self.password_label.grid(row=2, column=0, padx=10, sticky="w")
-        self.password_input.grid(row=2, column=1, padx=(0, 20), sticky="ew")
+        self.username_entry = customtkinter.CTkEntry(self.login_frame, width=200, placeholder_text="username")
+        self.username_entry.grid(row=1, column=0, padx=30, pady=(15, 15))
 
-        self.signin_btn = Button(self, text="Sign In")
-        self.signin_btn.grid(row=3, column=1, padx=0, pady=10, sticky="w")
 
-        self.signup_option_label = Label(self, text="Don't have an account?")
-        self.signup_btn = Button(self, text="Sign Up")
-        self.signup_option_label.grid(row=4, column=1, sticky="w")
-        self.signup_btn.grid(row=5, column=1, sticky="w")
+        self.password_entry = customtkinter.CTkEntry(self.login_frame, width=200, show="*", placeholder_text="password")
+        self.password_entry.grid(row=2, column=0, padx=30, pady=(0, 15))
+
+        self.login_button = customtkinter.CTkButton(self.login_frame, text="Login", width=200)
+        self.login_button.grid(row=3, column=0, padx=30, pady=(15, 15))
+
+        self.signup_option_label = customtkinter.CTkLabel(self.login_frame, text="Don't have an account?")
+        self.signup_btn = customtkinter.CTkButton(self.login_frame, text="Sign Up")
+        self.signup_option_label.grid(row=4, column=0, padx=10, pady=(15, 15))
+        self.signup_btn.grid(row=5, column=0, padx=20)
