@@ -5,6 +5,7 @@ from views.main import View
 from .home import HomeController
 from .signin import SignInController
 from .signup import SignUpController
+from .rootsignup import RootSignUpController
 
 
 class Controller:
@@ -14,6 +15,7 @@ class Controller:
         self.signin_controller = SignInController(model, view)
         self.signup_controller = SignUpController(model, view)
         self.home_controller = HomeController(model, view)
+        self.root_signup_controller = RootSignUpController(model, view)
 
         self.model.auth.add_event_listener("auth_changed", self.auth_state_listener)
 

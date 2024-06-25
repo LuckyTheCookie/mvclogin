@@ -31,7 +31,6 @@ class SignInController:
         self.view.switch("signup")
 
     def signin(self) -> None:
-         
         username = self.frame.username_entry.get()
         password = self.frame.password_entry.get()
         data = {"username": username, "password": password}
@@ -50,9 +49,15 @@ class SignInController:
             self.frame.password_entry.delete(0, len(password))
             user: User = {"username": data["username"]}
             self.model.auth.login(user)
+            self.clear_form()
         else:
             print("User does not exist in the database")
 
+    def clear_form(self) -> None:
+        username = self.frame.username_entry.get()
+        password = self.frame.password_entry.get()
+        self.frame.username_entry.delete(0, len(username))
+        self.frame.password_entry.delete(0, len(password))
 
 
 

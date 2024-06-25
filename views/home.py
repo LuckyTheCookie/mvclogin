@@ -3,6 +3,7 @@ from tkinter import Frame, Label, Button
 import customtkinter
 from PIL import Image
 import os
+import sqlite3
 
 customtkinter.set_appearance_mode("dark")
 
@@ -37,6 +38,9 @@ class HomeView(Frame):
         self.greeting_rank = customtkinter.CTkLabel(self.greeting_frame, text="")
         self.greeting_rank.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
 
-
+        # Root Signup that will only be visible to admin users - When clicked, it will open the rootsignup page
+        self.root_signup_btn = customtkinter.CTkButton(self.greeting_frame, text="Admin Signup")
+        self.root_signup_btn.grid(row=4, column=0, padx=10, pady=15)
+        
         self.signout_btn = customtkinter.CTkButton(self.greeting_frame, text="Sign Out")
-        self.signout_btn.grid(row=4, column=0, padx=10, pady=10)
+        self.signout_btn.grid(row=5, column=0, padx=10, pady=15)

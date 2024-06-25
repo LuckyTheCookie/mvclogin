@@ -6,21 +6,22 @@ import sqlite3
 mydb = sqlite3.connect("test.db")
 mycursor = mydb.cursor()
 
-class SignUpController:
+class RootSignUpController:
     def __init__(self, model: Model, view: View):
         self.model = model
         self.view = view
-        self.frame = self.view.frames["signup"]
+        self.frame = self.view.frames["rootsignup"]
         self._bind()
 
     def _bind(self) -> None:
         """Binds controller functions with respective buttons in the view"""
-        self.frame.signup_btn.configure(command=self.signup)
-        self.frame.signin_btn.configure(command=self.signin)
+        self.frame.root_signup_btn.configure(command=self.signup)
+        self.frame.home_btn.configure(command=self.home)
 
-    def signin(self) -> None:
+    def home(self) -> None:
+        self.clear_form()
         self.frame.root_signup_btn.configure(state="disabled")
-        self.view.switch("signin")
+        self.view.switch("home")
 
     def signup(self) -> None:
         data = {
@@ -28,7 +29,6 @@ class SignUpController:
             "fullname": self.frame.fullname_entry.get(),
             "username": self.frame.username_entry.get(),
             "password": self.frame.password_entry.get(),
-            "has_agreed": self.frame.has_agreed.get(),
         }
         print(data)
         user: User = {"username": data["username"]}
@@ -63,5 +63,4 @@ class SignUpController:
         self.frame.password_entry.delete(0, len(password))
         self.frame.user_type.set("")
 
-        self.frame.has_agreed.set(False)
-
+    

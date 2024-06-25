@@ -55,14 +55,16 @@ class SignUpView(Frame):
             self.signup_frame,
             text="Manufacturer",
             variable=self.user_type,
-            value="Manufacturer"
+            value="Manufacturer",
+            state="disabled"
         )
         self.manufacturer.grid(row=5, column=0, columnspan=3, padx=30, pady=(0, 0))
         self.integrator = customtkinter.CTkRadioButton(
             self.signup_frame,
             text="Integrator",
             variable=self.user_type,
-            value="Integrator"
+            value="Integrator",
+            state="disabled"
         )
         self.integrator.grid(row=6, column=0, columnspan=3, padx=30, pady=(0, 0))
 
@@ -80,10 +82,11 @@ class SignUpView(Frame):
         self.signup_btn = customtkinter.CTkButton(self.signup_frame, text="Sign Up")
         self.signup_btn.grid(row=8, column=0, padx=0, pady=10)
 
-        self.signin_option_label = Label(self, text="Already have an account?")
-        self.signin_btn = customtkinter.CTkButton(self, text="Sign In")
+        self.signin_option_label = customtkinter.CTkLabel(self.signup_frame, text="Already have an account?")
+        self.signin_btn = customtkinter.CTkButton(self.signup_frame, text="Sign In")
         self.signin_option_label.grid(row=9, column=0)
         self.signin_btn.grid(row=10, column=0)
+
 
         self.update_state()
 
