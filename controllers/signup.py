@@ -29,6 +29,7 @@ class SignUpController:
 
     def signup(self) -> None:
         data = {
+            "rank": self.frame.user_type.get(),
             "fullname": self.frame.fullname_entry.get(),
             "username": self.frame.username_entry.get(),
             "password": self.frame.password_entry.get(),
@@ -49,12 +50,12 @@ class SignUpController:
         password = data["password"]
         password = hashlib.sha256(password.encode()).hexdigest()
         print("Encrypting password")
-        # Save the user data to the database - Table: users - Columns: id, full_name, username, password
-        sql = "INSERT INTO users (full_name, username, password) VALUES (%s, %s, %s)"
-        val = (data["fullname"], data["username"], password)
+        # Save the user data to the database - Table: users - Columns: id, user_type, full_name, username, password
+        sql = "INSERT INTO users (rank, full_name, username, password) VALUES (%s, %s, %s, %s)"
+        val = (data["rank"], data["fullname"], data["username"], password)
         mycursor.execute(sql, val)
         mydb.commit()
-        print("User data saved to the database")
+        print("[UNSECURE] User data saved to the database")
 
 
     def clear_form(self) -> None:

@@ -42,6 +42,30 @@ class SignUpView(Frame):
         self.password_entry = customtkinter.CTkEntry(self.signup_frame, width=200, show="*", placeholder_text="password")
         self.password_entry.grid(row=3, column=0, padx=30, pady=(0, 15))
 
+        # Radio Button Opérateur / Fabricant / Intégrateur
+        self.user_type = customtkinter.StringVar()
+        self.operator = customtkinter.CTkRadioButton(
+            self.signup_frame,
+            text="Operator",
+            variable=self.user_type,
+            value="Operator"
+        )
+        self.operator.grid(row=4, column=0, padx=30, pady=(0, 0))
+        self.manufacturer = customtkinter.CTkRadioButton(
+            self.signup_frame,
+            text="Manufacturer",
+            variable=self.user_type,
+            value="Manufacturer"
+        )
+        self.manufacturer.grid(row=5, column=0, columnspan=3, padx=30, pady=(0, 0))
+        self.integrator = customtkinter.CTkRadioButton(
+            self.signup_frame,
+            text="Integrator",
+            variable=self.user_type,
+            value="Integrator"
+        )
+        self.integrator.grid(row=6, column=0, columnspan=3, padx=30, pady=(0, 0))
+
         # Agreement
         self.has_agreed = BooleanVar()
         self.agreement = customtkinter.CTkCheckBox(
@@ -51,21 +75,21 @@ class SignUpView(Frame):
             onvalue=True,
             offvalue=False,
         )
-        self.agreement.grid(row=4, column=0, padx=30, pady=(0, 15))
+        self.agreement.grid(row=7, column=0, padx=30, pady=(0, 15))
 
         self.signup_btn = customtkinter.CTkButton(self.signup_frame, text="Sign Up")
-        self.signup_btn.grid(row=5, column=0, padx=0, pady=10)
+        self.signup_btn.grid(row=8, column=0, padx=0, pady=10)
 
         self.signin_option_label = Label(self, text="Already have an account?")
         self.signin_btn = customtkinter.CTkButton(self, text="Sign In")
-        self.signin_option_label.grid(row=6, column=0)
-        self.signin_btn.grid(row=7, column=0)
+        self.signin_option_label.grid(row=9, column=0)
+        self.signin_btn.grid(row=10, column=0)
 
         self.update_state()
 
     # Désactiver le bouton de signup tant que l'utilisateur n'a pas coché la case d'acceptation des conditions et rempli tous les champs
     def check_trace(self, *args):
-        if self.has_agreed.get() and self.fullname_entry.get() and self.username_entry.get() and self.password_entry.get():
+        if self.has_agreed.get() and self.fullname_entry.get() and self.username_entry.get() and self.password_entry.get() and self.user_type.get():
             self.signup_btn.configure(state="normal")
         else:
             self.signup_btn.configure(state="disabled")
