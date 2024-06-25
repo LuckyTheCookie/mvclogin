@@ -23,7 +23,7 @@ class SignUpView(Frame):
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
         self.bg_image_label.grid(row=0, column=0)
 
-        # create login frame
+        # create signup frame
         self.signup_frame = customtkinter.CTkFrame(self, corner_radius=0)
         self.signup_frame.grid(row=0, column=0, sticky="ns")
         self.signup_label = customtkinter.CTkLabel(self.signup_frame, text="Create a new account",
@@ -60,3 +60,13 @@ class SignUpView(Frame):
         self.signin_btn = customtkinter.CTkButton(self, text="Sign In")
         self.signin_option_label.grid(row=6, column=0)
         self.signin_btn.grid(row=7, column=0)
+
+        # Désactiver le bouton de signup tant que l'utilisateur n'a pas coché la case d'acceptation des conditions et rempli tous les champs
+        # TODO
+
+
+
+
+        
+
+

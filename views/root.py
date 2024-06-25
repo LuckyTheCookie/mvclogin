@@ -13,7 +13,7 @@ class Root(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("CustomTkinter example_background_image.py")
+        self.title("MVC Login System")
         self.geometry(f"{self.width}x{self.height}")
         self.resizable(False, False)
         
