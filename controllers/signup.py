@@ -1,7 +1,16 @@
 from models.main import Model
 from models.auth import User
 from views.main import View
+import mysql.connector
+import hashlib
 
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="",
+  database="testlogin"
+)
+mycursor = mydb.cursor()
 
 class SignUpController:
     def __init__(self, model: Model, view: View):
@@ -29,8 +38,25 @@ class SignUpController:
         user: User = {"username": data["username"]}
         self.model.auth.login(user)
         self.clear_form()
-        
-    
+
+        print("[UNSECURE] Connecting to the database")
+        if mydb.is_connected():
+            print("[UNSECURE] Connection established")
+        else:
+            print("[UNSECURE] Connection failed")
+
+        # Encrypt password before saving to database
+        password = data["password"]
+        password = hashlib.sha256(password.encode()).hexdigest()
+        print("Encrypting password")
+        # Save the user data to the database - Table: users - Columns: id, full_name, username, password
+        sql = "INSERT INTO users (full_name, username, password) VALUES (%s, %s, %s)"
+        val = (data["fullname"], data["username"], password)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        print("User data saved to the database")
+
+
     def clear_form(self) -> None:
         fullname = self.frame.fullname_entry.get()
         username = self.frame.username_entry.get()

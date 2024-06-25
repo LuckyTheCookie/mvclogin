@@ -42,5 +42,6 @@ class SignInView(Frame):
 
         self.signup_option_label = customtkinter.CTkLabel(self.login_frame, text="Don't have an account?")
         self.signup_btn = customtkinter.CTkButton(self.login_frame, text="Sign Up")
-        self.signup_option_label.grid(row=4, column=0, padx=10, pady=(15, 15))
-        self.signup_btn.grid(row=5, column=0, padx=20)
+        self.signup_option_label.grid(row=5, column=0, padx=10, pady=(15, 15))
+        self.signup_btn.grid(row=6, column=0, padx=20)
+    

@@ -61,8 +61,27 @@ class SignUpView(Frame):
         self.signin_option_label.grid(row=6, column=0)
         self.signin_btn.grid(row=7, column=0)
 
+        self.update_state()
+
+    # Désactiver le bouton de signup tant que l'utilisateur n'a pas coché la case d'acceptation des conditions et rempli tous les champs
+    def check_trace(self, *args):
+        if self.has_agreed.get() and self.fullname_entry.get() and self.username_entry.get() and self.password_entry.get():
+            self.signup_btn.configure(state="normal")
+        else:
+            self.signup_btn.configure(state="disabled")
+            
+
+    def update_state(self):
         # Désactiver le bouton de signup tant que l'utilisateur n'a pas coché la case d'acceptation des conditions et rempli tous les champs
-        # TODO
+        self.signup_btn.configure(state="disabled")
+        
+        # Update the state of the signup button
+        self.has_agreed.trace_add("write", self.check_trace)
+        self.fullname_entry.bind("<KeyRelease>", self.check_trace)
+        self.username_entry.bind("<KeyRelease>", self.check_trace)
+        self.password_entry.bind("<KeyRelease>", self.check_trace)
+
+
 
 
 
