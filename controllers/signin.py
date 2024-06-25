@@ -1,22 +1,17 @@
 from models.main import Model
 from models.auth import User
 from views.main import View
-import mysql.connector
 import hashlib
-
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="",
-  database="testlogin"
-)
+import sqlite3
+mydb = sqlite3.connect("test.db")
 mycursor = mydb.cursor()
 
-print("[UNSECURE] Connecting to the database")
-if mydb.is_connected():
-    print("[UNSECURE] Connection established")
+print("[UNSECURE - LOCAL] Connecting to the database")
+if mydb:
+    print("[UNSECURE - LOCAL] Connection established")
 else:
-    print("[UNSECURE] Connection failed")
+    print("Connection failed")
+
 
 
 
@@ -46,7 +41,7 @@ class SignInController:
         password = hashlib.sha256(password.encode()).hexdigest()
         print("Encrypting password")
         # Check if the user exists in the database
-        sql = "SELECT * FROM users WHERE username = %s AND password = %s"
+        sql = "SELECT * FROM users WHERE username = ? AND password = ?"
         val = (data["username"], password)
         mycursor.execute(sql, val)
         result = mycursor.fetchall()
