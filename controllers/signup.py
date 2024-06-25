@@ -60,5 +60,6 @@ class SignUpController:
         self.frame.fullname_entry.focus()
         self.frame.username_entry.delete(0, len(username))
         self.frame.password_entry.delete(0, len(password))
+        self.frame.user_type.set("")
 
         self.frame.has_agreed.set(False)

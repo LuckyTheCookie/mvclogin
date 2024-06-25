@@ -1,5 +1,6 @@
 from models.main import Model
 from views.main import View
+import sqlite3
 
 
 class HomeController:
@@ -23,3 +24,16 @@ class HomeController:
             self.frame.greeting.configure(text=f"Login successful, welcome {username} !")
         else:
             self.frame.greeting.configure(text=f"")
+
+        # Get the rank of the user from the database
+        mydb = sqlite3.connect("test.db")
+        mycursor = mydb.cursor()
+        sql = "SELECT rank FROM users WHERE username = ?"
+        val = (username,)
+        mycursor.execute(sql, val)
+        result = mycursor.fetchall()
+        if result:
+            rank = result[0][0]
+            self.frame.greeting_rank.configure(text=f"You've been connected as : {rank}")
+        else:
+            self.frame.greeting_rank.configure(text=f"Rank: Error fetching rank")

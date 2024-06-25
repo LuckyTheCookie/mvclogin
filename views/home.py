@@ -34,5 +34,9 @@ class HomeView(Frame):
         self.greeting = customtkinter.CTkLabel(self.greeting_frame, text="")
         self.greeting.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
 
+        self.greeting_rank = customtkinter.CTkLabel(self.greeting_frame, text="")
+        self.greeting_rank.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
+
+
         self.signout_btn = customtkinter.CTkButton(self.greeting_frame, text="Sign Out")
-        self.signout_btn.grid(row=3, column=0, padx=10, pady=10)
+        self.signout_btn.grid(row=4, column=0, padx=10, pady=10)
