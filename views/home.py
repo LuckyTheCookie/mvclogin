@@ -40,7 +40,10 @@ class HomeView(Frame):
 
         # Root Signup that will only be visible to admin users - When clicked, it will open the rootsignup page
         self.root_signup_btn = customtkinter.CTkButton(self.greeting_frame, text="Admin Signup")
-        self.root_signup_btn.grid(row=4, column=0, padx=10, pady=15)
+        self.root_signup_btn.grid(row=4, column=0, padx=10, pady=5)
+
+        self.config_otp_btn = customtkinter.CTkButton(self.greeting_frame, text="Configure OTP")
+        self.config_otp_btn.grid(row=5, column=0, padx=10, pady=5)
         
         self.signout_btn = customtkinter.CTkButton(self.greeting_frame, text="Sign Out")
-        self.signout_btn.grid(row=5, column=0, padx=10, pady=15)
+        self.signout_btn.grid(row=6, column=0, padx=10, pady=5)

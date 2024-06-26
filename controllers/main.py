@@ -6,6 +6,7 @@ from .home import HomeController
 from .signin import SignInController
 from .signup import SignUpController
 from .rootsignup import RootSignUpController
+from .otpconfig import OtpController
 
 
 class Controller:
@@ -16,6 +17,7 @@ class Controller:
         self.signup_controller = SignUpController(model, view)
         self.home_controller = HomeController(model, view)
         self.root_signup_controller = RootSignUpController(model, view)
+        self.otp_controller = OtpController(model, view)
 
         self.model.auth.add_event_listener("auth_changed", self.auth_state_listener)
 

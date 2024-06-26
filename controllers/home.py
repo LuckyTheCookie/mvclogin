@@ -1,6 +1,7 @@
 from models.main import Model
 from views.main import View
 import sqlite3
+from .otpconfig import OtpController
 
 
 class HomeController:
@@ -14,6 +15,12 @@ class HomeController:
         """Binds controller functions with respective buttons in the view"""
         self.frame.signout_btn.configure(command=self.logout)
         self.frame.root_signup_btn.configure(command=self.admin_signup)
+        self.frame.config_otp_btn.configure(command=self.otp)
+
+    def otp(self) -> None:
+        self.view.switch("otpconfig")
+        # Generate the OTP for the user
+        otp_controller = OtpController(self.model, self.view)
 
     def logout(self) -> None:
         self.model.auth.logout()
