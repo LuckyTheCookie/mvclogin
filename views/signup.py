@@ -104,6 +104,7 @@ class SignUpView(Frame):
         
         # Update the state of the signup button
         self.has_agreed.trace_add("write", self.check_trace)
+        self.user_type.trace_add("write", self.check_trace)
         self.fullname_entry.bind("<KeyRelease>", self.check_trace)
         self.username_entry.bind("<KeyRelease>", self.check_trace)
         self.password_entry.bind("<KeyRelease>", self.check_trace)

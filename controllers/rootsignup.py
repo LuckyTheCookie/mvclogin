@@ -32,7 +32,6 @@ class RootSignUpController:
         }
         print(data)
         user: User = {"username": data["username"]}
-        self.model.auth.login(user)
         self.clear_form()
 
         print("[UNSECURE - LOCAL] Connecting to the database")
@@ -51,6 +50,7 @@ class RootSignUpController:
         mycursor.execute(sql, val)
         mydb.commit()
         print("User saved to the database")
+        self.home()
 
 
     def clear_form(self) -> None:
