@@ -39,48 +39,63 @@ class SignInController:
         data = {"username": username, "password": password}
         print(data)
 
-        password = data["password"]
-        passwordforotp = password
-        password = hashlib.sha256(password.encode()).hexdigest()
+        # Encrypt the password
+        encrypted_password = hashlib.sha256(password.encode()).hexdigest()
         print("Encrypting password")
-        # Check if the user exists in the database
-        sql = "SELECT * FROM users WHERE username = ? "
-        val = (data["username"],)
-        mycursor.execute(sql, val)
-        result = mycursor.fetchall()
-        if result:
-            print("User exists in the database")
-            # Check if the password is correct
-            sql = "SELECT * FROM users WHERE username = ? AND password = ?"
-            val = (data["username"], password)
+
+        try:
+            # Connect to the database
+            mydb = sqlite3.connect("test.db")
+            mycursor = mydb.cursor()
+
+            # Check if the user exists in the database
+            sql = "SELECT * FROM users WHERE username = ?"
+            val = (username,)
             mycursor.execute(sql, val)
-            result = mycursor.fetchall()
+            result = mycursor.fetchone()  # Use fetchone() to get a single result
             if result:
-                print("Password is correct")
-                self.connection()
-            else:
-                print("Password is incorrect")
-                self.frame.password_entry.delete(0, len(password))
-                # Verify if the user has entered his otp
-                sql = "SELECT otp_key FROM users WHERE username = ?"
-                val = (data["username"],)
+                print("User exists in the database")
+
+                # Check if the password is correct
+                sql = "SELECT * FROM users WHERE username = ? AND password = ?"
+                val = (username, encrypted_password)
                 mycursor.execute(sql, val)
-                result = mycursor.fetchall()
-                print("fetching otp key")
-                # Convert the result to a string
-                result = str(result)
-                # If result is not empty, the user already has a secret key
-                if result != "[('',)]":
-                    print("otp key found")
-                    print("OTP key is " + result)
-                    totp = pyotp.TOTP(result[0][0])
-                    print("Password entered is" + passwordforotp)
-                    print("OTP is" + totp.now())
-                    if totp.verify(passwordforotp):
-                        print("OTP is correct")
-                        self.connection()
-        else:
-            print("User does not exist in the database")
+                result = mycursor.fetchone()  # Use fetchone() to get a single result
+                if result:
+                    print("Password is correct")
+                    self.connection()
+                else:
+                    print("Password is incorrect")
+                    self.frame.password_entry.delete(0, len(password))
+
+                    # Verify if the user already has a secret key
+                    sql = "SELECT otp_key FROM users WHERE username = ?"
+                    val = (username,)
+                    mycursor.execute(sql, val)
+                    result = mycursor.fetchone()  # Use fetchone() to get a single result
+                    print("fetching otp key")
+                    if result and result[0]:  # Check if result is not empty and has a valid OTP key
+                        otp_key = result[0]
+                        print("otp key found")
+                        totp = pyotp.TOTP(otp_key)
+                        print("Current OTP:", totp.now())
+                        print("Verifying OTP")
+                        if totp.verify(password):
+                            print("OTP is correct")
+                            self.connection()
+                        else:
+                            print("OTP is incorrect")
+                    else:
+                        print("No OTP key found for the user")
+            else:
+                print("User does not exist in the database")
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+        except Exception as e:
+            print(f"Error: {e}")
+        finally:
+            if mydb:
+                mydb.close()
 
     def clear_form(self) -> None:
         username = self.frame.username_entry.get()
@@ -94,7 +109,7 @@ class SignInController:
         data = {"username": username, "password": password}
 
         self.frame.password_entry.delete(0, len(password))
-        user: User = {"username": data["username"]}
+        user = {"username": data["username"]}
         self.model.auth.login(user)
         self.clear_form()
 

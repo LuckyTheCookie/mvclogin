@@ -21,6 +21,7 @@ class HomeController:
         self.view.switch("otpconfig")
         # Generate the OTP for the user
         otp_controller = OtpController(self.model, self.view)
+        otp_controller.generate_otp()
 
     def logout(self) -> None:
         self.model.auth.logout()
