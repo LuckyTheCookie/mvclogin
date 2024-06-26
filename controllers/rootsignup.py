@@ -37,22 +37,31 @@ class RootSignUpController:
         print("[UNSECURE - LOCAL] Connecting to the database")
         if mydb:
             print("[UNSECURE - LOCAL] Connection established")
+            # Verify that the user hasn't already signed up
+            sql = "SELECT * FROM users WHERE username = ?"
+            val = (data["username"],)
+            mycursor.execute(sql, val)
+            result = mycursor.fetchall()
+            if result:
+                print("User already exists")
+                return
+            else:
+                print("Creating a new account")
+                # Encrypt password before saving to database
+                password = data["password"]
+                password = hashlib.sha256(password.encode()).hexdigest()
+                print("Encrypting password")
+                # Save the user data to the database - Table: users - Columns: id, user_type, full_name, username, password
+                sql = "INSERT INTO users (rank, full_name, username, password) VALUES (?, ?, ?, ?)"
+                val = (data["rank"], data["fullname"], data["username"], password)
+                mycursor.execute(sql, val)
+                mydb.commit()
+                print("User saved to the database")
+                self.home()
         else:
             print("Connection failed")
 
-        # Encrypt password before saving to database
-        password = data["password"]
-        password = hashlib.sha256(password.encode()).hexdigest()
-        print("Encrypting password")
-        # Save the user data to the database - Table: users - Columns: id, user_type, full_name, username, password
-        sql = "INSERT INTO users (rank, full_name, username, password) VALUES (?, ?, ?, ?)"
-        val = (data["rank"], data["fullname"], data["username"], password)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        print("User saved to the database")
-        self.home()
-
-
+        
     def clear_form(self) -> None:
         fullname = self.frame.fullname_entry.get()
         username = self.frame.username_entry.get()
