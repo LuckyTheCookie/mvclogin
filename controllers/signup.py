@@ -19,7 +19,7 @@ class SignUpController:
         self.frame.signin_btn.configure(command=self.signin)
 
     def signin(self) -> None:
-        self.frame.root_signup_btn.configure(state="disabled")
+        self.frame.signup_btn.configure(state="disabled")
         self.view.switch("signin")
 
     def signup(self) -> None:
