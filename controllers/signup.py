@@ -3,6 +3,7 @@ from models.auth import User
 from views.main import View
 import hashlib
 import sqlite3
+from tkinter import messagebox
 mydb = sqlite3.connect("test.db")
 mycursor = mydb.cursor()
 
@@ -43,7 +44,25 @@ class SignUpController:
             mycursor.execute(sql, val)
             result = mycursor.fetchall()
             if result:
-                print("User already exists")
+                messagebox.showerror("User already exists", "The username already exists. Please choose another username.")
+                return
+            # Check if the user has a very complex password
+            if len(data["password"]) < 8:
+                messagebox.showerror("Weak password", "The password should be at least 8 characters long.")
+                return
+            # Check if the user has lowercase, uppercase, and special characters in the password
+            has_lowercase = False
+            has_uppercase = False
+            has_special_char = False
+            for char in data["password"]:
+                if char.islower():
+                    has_lowercase = True
+                if char.isupper():
+                    has_uppercase = True
+                if not char.isalnum():
+                    has_special_char = True
+            if not has_lowercase or not has_uppercase or not has_special_char:
+                messagebox.showerror("Weak password", "The password should contain lowercase, uppercase, and special characters.")
                 return
             else:
                 print("Creating a new account")

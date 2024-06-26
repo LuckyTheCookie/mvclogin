@@ -27,7 +27,7 @@ class OtpController:
 
     def generate_otp(self) -> None:
         current_user = self.model.auth.current_user
-        
+
         print("Generating OTP")
         if current_user:
             try:
@@ -44,7 +44,7 @@ class OtpController:
                     otp_key = result[0]
                     print("otp key found")
                     print("otp key is " + otp_key)
-                    qr = segno.make(f"otpauth://totp/{current_user['username']}?secret={otp_key}&issuer=TESTAPP")
+                    qr = segno.make(f"otpauth://totp/{current_user['username']}?secret={otp_key}&issuer=MSInnov")
                     print(qr)
                     qr.save("otp.png")
                     self.update_qr_code()
@@ -55,7 +55,7 @@ class OtpController:
                     otp_key = pyotp.random_base32()
                     # Generate a QR code for the user
                     print("Generating QR code")
-                    qr = segno.make(f"otpauth://totp/{username}?secret={otp_key}&issuer=TESTAPP")
+                    qr = segno.make(f"otpauth://totp/{username}?secret={otp_key}&issuer=MSInnov")
                     qr.save("otp.png")
                     self.update_qr_code()
                     # Save the secret key to the database
