@@ -34,7 +34,7 @@ class TeachJobsView(Frame):
         plus_button = customtkinter.CTkButton(top_bar, text="+", width=30, fg_color="#00B4CD")
         plus_button.pack(side="right", padx=5, pady=5)
         
-        speed_label = customtkinter.CTkLabel(top_bar, text="⚡100")
+        speed_label = customtkinter.CTkLabel(top_bar, text="⚡100", text_color="white")
         speed_label.pack(side="right", padx=10, pady=10)
 
         minus_button = customtkinter.CTkButton(top_bar, text="-", width=30, fg_color="#00B4CD")
