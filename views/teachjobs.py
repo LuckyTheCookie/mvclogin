@@ -59,8 +59,8 @@ class TeachJobsView(Frame):
         sidebar_label.grid(row=0, column=0, padx=10, pady=10)
 
         # Load icons
-        current_path = os.path.dirname(os.path.realpath(__file__))
-        icons = [ImageTk.PhotoImage(Image.open(os.path.join(current_path, f"icon{i+1}.png")).resize((20, 20))) for i in range(5)]
+        # current_path = os.path.dirname(os.path.realpath(__file__))
+        # icons = [ImageTk.PhotoImage(Image.open(os.path.join(current_path, f"icon{i+1}.png")).resize((20, 20))) for i in range(5)]
 
         # Define the buttons in the sidebar
         # buttons = [
@@ -85,6 +85,7 @@ class TeachJobsView(Frame):
             ("❓NŒUD MÉTIER 5")
         ]
 
+
         # Create the buttons in the sidebar
         for i, (text) in enumerate(buttons):
             button = customtkinter.CTkButton(sidebar_frame, text=text, fg_color="#00B4CD", corner_radius=10)
@@ -95,11 +96,11 @@ class TeachJobsView(Frame):
         main_label.pack(pady=20)
 
         # Grid layout in the main content area
-        grid_frame = customtkinter.CTkFrame(main_frame, fg_color="#E8E8E8")
+        grid_frame = customtkinter.CTkFrame(main_frame, fg_color="#404B50")
         grid_frame.pack(pady=30, padx=50)
 
         for row in range(2):
-            for col in range(3):
+            for col in range(4):
                 cell = customtkinter.CTkFrame(grid_frame, width=100, height=100, fg_color="#F5F5F5")
                 cell.grid(row=row, column=col, padx=5, pady=5)
 
