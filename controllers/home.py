@@ -16,12 +16,17 @@ class HomeController:
         self.frame.signout_btn.configure(command=self.logout)
         self.frame.root_signup_btn.configure(command=self.admin_signup)
         self.frame.config_otp_btn.configure(command=self.otp)
+        self.frame.teach_jobs_btn.configure(command=self.teach_jobs)
+
 
     def otp(self) -> None:
         self.view.switch("otpconfig")
         # Generate the OTP for the user
         otp_controller = OtpController(self.model, self.view)
         otp_controller.generate_otp()
+
+    def teach_jobs(self) -> None:
+        self.view.switch("teachjobs")
 
     def logout(self) -> None:
         self.model.auth.logout()

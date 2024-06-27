@@ -6,6 +6,7 @@ from .signin import SignInView
 from .signup import SignUpView
 from .rootsignup import RootSignUpView
 from .otpconfig import OtpConfigView
+from .teachjobs import TeachJobsView
 
 
 
@@ -26,6 +27,7 @@ class View:
         self._add_frame(SignInView, "signin")
         self._add_frame(HomeView, "home")
         self._add_frame(OtpConfigView, "otpconfig")
+        self._add_frame(TeachJobsView, "teachjobs")
 
     def _add_frame(self, Frame, name: str) -> None:
         self.frames[name] = Frame(self.root)

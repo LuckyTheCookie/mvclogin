@@ -32,6 +32,7 @@ class SignInController:
 
     def signup(self) -> None:
         self.view.switch("signup")
+        #self.view.switch("teachjobs")
 
     def signin(self) -> None:
         username = self.frame.username_entry.get()

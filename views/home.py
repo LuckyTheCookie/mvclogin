@@ -45,6 +45,9 @@ class HomeView(Frame):
 
         self.config_otp_btn = customtkinter.CTkButton(self.greeting_frame, text="Configure OTP")
         self.config_otp_btn.grid(row=5, column=0, padx=10, pady=5)
+
+        self.teach_jobs_btn = customtkinter.CTkButton(self.greeting_frame, text="Teach Jobs")
+        self.teach_jobs_btn.grid(row=6, column=0, padx=10, pady=5)
         
         self.signout_btn = customtkinter.CTkButton(self.greeting_frame, text="Sign Out")
-        self.signout_btn.grid(row=6, column=0, padx=10, pady=5)
+        self.signout_btn.grid(row=7, column=0, padx=10, pady=5)
