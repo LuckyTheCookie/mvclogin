@@ -9,11 +9,22 @@ import time
 mydb = sqlite3.connect("test.db")
 mycursor = mydb.cursor()
 
-print("[UNSECURE - LOCAL] Connecting to the database")
-if mydb:
-    print("[UNSECURE - LOCAL] Connection established")
-else:
-    print("Connection failed")
+# Create the database if it does not exist
+try:
+    mycursor.execute("SELECT * FROM users")
+    print("[UNSECURE - LOCAL] Database connected")
+
+except sqlite3.OperationalError:
+    if messagebox.askyesno(title="Database error !", message="Error connecting to the database, do you want to create a new database ?", icon="error"):
+        mycursor.execute("CREATE TABLE users (username TEXT, password TEXT, otp_key TEXT, rank TEXT)")
+        mydb.commit()
+        print("[UNSECURE - LOCAL] Database created")
+    else:
+        messagebox.showerror(title="Database error !", message="You won't be able to use the application without a database, exiting...")
+        exit()
+finally:
+    mydb.close()
+
 
 
 
