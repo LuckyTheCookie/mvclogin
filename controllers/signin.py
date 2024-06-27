@@ -1,6 +1,7 @@
 from models.main import Model
 from models.auth import User
 from views.main import View
+from tkinter import messagebox
 import hashlib
 import sqlite3
 import pyotp

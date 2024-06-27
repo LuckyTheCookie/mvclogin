@@ -6,6 +6,8 @@ from .signin import SignInView
 from .signup import SignUpView
 from .rootsignup import RootSignUpView
 from .otpconfig import OtpConfigView
+from .account_manager import AccountManagerView
+from .root_account_manager import RootAccountManagerView
 
 
 
@@ -15,6 +17,8 @@ class Frames(TypedDict):
     home: HomeView
     rootsignup: RootSignUpView
     otpconfig: OtpConfigView
+    manageaccount: AccountManagerView
+    rootmanageaccounts: RootAccountManagerView
     
 
 
@@ -28,6 +32,8 @@ class View:
         self._add_frame(SignInView, "signin")
         self._add_frame(HomeView, "home")
         self._add_frame(OtpConfigView, "otpconfig")
+        self._add_frame(AccountManagerView, "accountmanager")
+        self._add_frame(RootAccountManagerView, "rootaccountmanager")
 
     def _add_frame(self, Frame, name: str) -> None:
         self.frames[name] = Frame(self.root)
