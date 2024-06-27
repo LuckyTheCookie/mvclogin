@@ -16,7 +16,8 @@ class HomeView(Frame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=0)
+        self.grid_columnconfigure(1, weight=1)
 
         # load and create background image
         current_path = os.path.dirname(os.path.realpath(__file__))
@@ -28,7 +29,7 @@ class HomeView(Frame):
         # create home frame
         self.greeting_frame = customtkinter.CTkFrame(self, corner_radius=0)
         self.greeting_frame.grid(row=0, column=0, sticky="ns")
-        self.login_label = customtkinter.CTkLabel(self.greeting_frame, text="Home",
+        self.login_label = customtkinter.CTkLabel(self.greeting_frame, text="Welcome to the Home Page",
                                                   font=customtkinter.CTkFont(size=20, weight="bold"))
         self.login_label.grid(row=0, column=0, padx=30, pady=(150, 15))
 

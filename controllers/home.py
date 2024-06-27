@@ -54,7 +54,9 @@ class HomeController:
             rank = result[0][0]
             if rank == "Integrator" or rank == "Manufacturer":
                 self.frame.root_signup_btn.configure(state="normal")
+                self.frame.root_signup_btn.grid(row=4, column=0, padx=10, pady=5)
             else:
                 self.frame.root_signup_btn.configure(state="disabled")
+                self.frame.root_signup_btn.grid_forget()
         else:
             self.frame.root_signup_btn.configure(state="disabled")
