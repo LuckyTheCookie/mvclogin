@@ -15,6 +15,8 @@ class Frames(TypedDict):
     signin: SignInView
     home: HomeView
     rootsignup: RootSignUpView
+    otpconfig: OtpConfigView
+    teachjobs: TeachJobsView
 
 
 class View:

@@ -18,45 +18,45 @@ class TeachJobsView(Frame):
         self.grid_columnconfigure(1, weight=1)
 
         # Top bar frame
-        top_bar = customtkinter.CTkFrame(self, corner_radius=0, fg_color="#404B50")
-        top_bar.grid(row=0, column=0, columnspan=2, sticky="ew")
+        self.top_bar = customtkinter.CTkFrame(self, corner_radius=0, fg_color="#404B50")
+        self.top_bar.grid(row=0, column=0, columnspan=2, sticky="ew")
 
         # Top bar components
-        hand_icon = customtkinter.CTkButton(top_bar, text="✋", width=30, border_width=2, fg_color="#00B4CD")
-        hand_icon.pack(side="left", padx=5, pady=5)
+        self.hand_icon = customtkinter.CTkButton(self.top_bar, text="✋", width=30, border_width=2, fg_color="#00B4CD")
+        self.hand_icon.pack(side="left", padx=5, pady=5)
 
-        battery_icon = customtkinter.CTkButton(top_bar, text="🪫", width=30, border_width=2, fg_color="#00B4CD")
-        battery_icon.pack(side="left", padx=5, pady=5)
+        self.battery_icon = customtkinter.CTkButton(self.top_bar, text="🪫", width=30, border_width=2, fg_color="#00B4CD")
+        self.battery_icon.pack(side="left", padx=5, pady=5)
 
-        plus_plus_button = customtkinter.CTkButton(top_bar, text="++", width=30, fg_color="#00B4CD")
-        plus_plus_button.pack(side="right", padx=5, pady=5)
+        self.plus_plus_button = customtkinter.CTkButton(self.top_bar, text="++", width=30, fg_color="#00B4CD")
+        self.plus_plus_button.pack(side="right", padx=5, pady=5)
         
-        plus_button = customtkinter.CTkButton(top_bar, text="+", width=30, fg_color="#00B4CD")
-        plus_button.pack(side="right", padx=5, pady=5)
+        self.plus_button = customtkinter.CTkButton(self.top_bar, text="+", width=30, fg_color="#00B4CD")
+        self.plus_button.pack(side="right", padx=5, pady=5)
         
-        speed_label = customtkinter.CTkLabel(top_bar, text="⚡100", text_color="white")
-        speed_label.pack(side="right", padx=10, pady=10)
+        self.speed_label = customtkinter.CTkLabel(self.top_bar, text="⚡ 100", text_color="white")
+        self.speed_label.pack(side="right", padx=10, pady=10)
 
-        minus_button = customtkinter.CTkButton(top_bar, text="-", width=30, fg_color="#00B4CD")
-        minus_button.pack(side="right", padx=5, pady=5)
+        self.minus_button = customtkinter.CTkButton(self.top_bar, text="-", width=30, fg_color="#00B4CD")
+        self.minus_button.pack(side="right", padx=5, pady=5)
 
-        minus_minus_button = customtkinter.CTkButton(top_bar, text="- -", width=30, fg_color="#00B4CD")
-        minus_minus_button.pack(side="right", padx=5, pady=5)
+        self.minus_minus_button = customtkinter.CTkButton(self.top_bar, text="- -", width=30, fg_color="#00B4CD")
+        self.minus_minus_button.pack(side="right", padx=5, pady=5)
 
-        robot_icon = customtkinter.CTkButton(top_bar, text="🤖", width=30, fg_color="#00B4CD")
-        robot_icon.pack(side="right", padx=5, pady=5)
+        self.robot_icon = customtkinter.CTkButton(self.top_bar, text="🤖", width=30, fg_color="#00B4CD")
+        self.robot_icon.pack(side="right", padx=5, pady=5)
 
         # Left sidebar frame
-        sidebar_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="#404B50")
-        sidebar_frame.grid(row=1, column=0, rowspan=5, sticky="nsew")
+        self.sidebar_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="#404B50")
+        self.sidebar_frame.grid(row=1, column=0, rowspan=5, sticky="nsew")
 
         # Main content frame
-        main_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="#E8E8E8")
-        main_frame.grid(row=1, column=1, sticky="nsew")
+        self.main_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="#E8E8E8")
+        self.main_frame.grid(row=1, column=1, sticky="nsew")
 
         # Sidebar content
-        sidebar_label = customtkinter.CTkLabel(sidebar_frame, text="NOM_DU_PROGRAMME", anchor="w")
-        sidebar_label.grid(row=0, column=0, padx=10, pady=10)
+        self.sidebar_label = customtkinter.CTkLabel(self.sidebar_frame, text="NOM_DU_PROGRAMME", anchor="w")
+        self.sidebar_label.grid(row=0, column=0, padx=10, pady=10)
 
         # Load icons
         # current_path = os.path.dirname(os.path.realpath(__file__))
@@ -88,20 +88,20 @@ class TeachJobsView(Frame):
 
         # Create the buttons in the sidebar
         for i, (text) in enumerate(buttons):
-            button = customtkinter.CTkButton(sidebar_frame, text=text, fg_color="#00B4CD", corner_radius=10)
+            button = customtkinter.CTkButton(self.sidebar_frame, text=text, fg_color="#00B4CD", corner_radius=10)
             button.grid(row=i+1, column=0, padx=10, pady=10, sticky="ew")
 
         # Main content area
-        main_label = customtkinter.CTkLabel(main_frame, text="NŒUD MÉTIER 1", font=customtkinter.CTkFont(size=24))
-        main_label.pack(pady=20)
+        self.main_label = customtkinter.CTkLabel(self.main_frame, text="NŒUD MÉTIER 1", font=customtkinter.CTkFont(size=24))
+        self.main_label.pack(pady=20)
 
         # Grid layout in the main content area
-        grid_frame = customtkinter.CTkFrame(main_frame, fg_color="#404B50")
-        grid_frame.pack(pady=30, padx=50)
+        self.grid_frame = customtkinter.CTkFrame(self.main_frame, fg_color="#404B50")
+        self.grid_frame.pack(pady=30, padx=50)
 
         for row in range(2):
             for col in range(4):
-                cell = customtkinter.CTkFrame(grid_frame, width=100, height=100, fg_color="#F5F5F5")
+                cell = customtkinter.CTkFrame(self.grid_frame, width=100, height=100, fg_color="#F5F5F5")
                 cell.grid(row=row, column=col, padx=5, pady=5)
 
 
